@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Week3Lab.Views.MainPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="8">
+
+            <HorizontalStackLayout>
+                <Entry x:Name="TodoTitleEntry" Text="" WidthRequest="220" />
+                <Button Margin="8,0,0,0" Clicked="OnTodoAdded" Text="Add" />
+            </HorizontalStackLayout>
+
+            <Border Margin="0,4,0,8" BackgroundColor="Gray" HeightRequest="1" />
+            <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
+            <ListView x:Name="ActiveTodoListView" ItemsSource="{Binding ActiveTodos}" MinimumHeightRequest="50" />
+            <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
+            <Label
+                FontAttributes="Bold" Opacity="0.8"
+                Text="Completed:"
+                TextColor="{StaticResource PrimaryDark}" />
+            <ListView
+                x:Name="CompletedTodoListView"
+                ItemsSource="{Binding CompletedTodos}"
+                MinimumHeightRequest="50" Opacity="0.5" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
