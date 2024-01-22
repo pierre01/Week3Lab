@@ -24,12 +24,12 @@
                     <ImageButton
                         Margin="0,0,0,8"
                         BackgroundColor="{StaticResource Secondary}"
-                        Clicked="OnCheckActiveTodo" HeightRequest="32"
-                        Source="check.png" WidthRequest="32" />
+                        Clicked="OnCheckActiveTodo" HeightRequest="24"
+                        Source="check.png" WidthRequest="24" />
                     <ImageButton
                         BackgroundColor="{StaticResource Secondary}"
-                        Clicked="OnDeleteActiveTodo" HeightRequest="32"
-                        Source="trash.png" WidthRequest="32" />
+                        Clicked="OnDeleteActiveTodo" HeightRequest="24"
+                        Source="trash.png" WidthRequest="24" />
                 </VerticalStackLayout>
             </Grid>
             <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
