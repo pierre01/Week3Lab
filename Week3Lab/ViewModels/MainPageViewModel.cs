@@ -6,12 +6,40 @@ namespace Week3Lab.ViewModels
 {
     public class MainPageViewModel
     {
+        private Todo _selectedActiveTodo;
+        private Todo _selectedCompletedTodo;
+        private int _todoCounter;
+
         public ObservableCollection<Todo> ActiveTodos { get; set; }
         public ObservableCollection<Todo> CompletedTodos { get; set; }
 
-        public Todo SelectedActiveTodo { get; set; }
-        public Todo SelectedCompletedTodo { get; set; }
 
+        public ICommand AddTodoCommand { get; set; }
+        public ICommand DeleteActiveTodoCommand { get; set; }
+        public ICommand DeleteCompletedTodoCommand { get; set; }
+        public ICommand CompleteActiveTodoCommand { get; set; }
+        public ICommand ReactivateCompletedTodoCommand { get; set; }
+
+        public Todo SelectedActiveTodo
+        {
+            get => _selectedActiveTodo;
+            set
+            {
+                _selectedActiveTodo = value;
+                (CompleteActiveTodoCommand as Command)?.ChangeCanExecute();
+                (DeleteActiveTodoCommand as Command)?.ChangeCanExecute();
+            }
+        }
+        public Todo SelectedCompletedTodo
+        {
+            get { return _selectedCompletedTodo; }
+            set
+            {
+                _selectedCompletedTodo = value;
+                (ReactivateCompletedTodoCommand as Command)?.ChangeCanExecute();
+                (DeleteCompletedTodoCommand as Command)?.ChangeCanExecute();
+            }
+        }
         public MainPageViewModel()
         {
             ActiveTodos =
@@ -33,7 +61,33 @@ namespace Week3Lab.ViewModels
                 new Todo { Id = 13, Title = "Clean Cat litter", IsDone = true },
                 new Todo { Id = 14, Title = "Doctor Appointment", IsDone = true },
             ];
+
+            AddTodoCommand = new Command(AddTodo);
+            DeleteActiveTodoCommand = new Command(DeleteActiveTodo, IsActiveTodoSelected);
+            DeleteCompletedTodoCommand = new Command(DeleteCompletedTodo, IsCompletedTodoSelected);
+            CompleteActiveTodoCommand = new Command(CompleteActiveTodo, IsActiveTodoSelected);
+            ReactivateCompletedTodoCommand = new Command(ReactivateCompletedTodo, IsCompletedTodoSelected);
         }
+
+        private void AddTodo(object param)
+        {
+            string todoTitle = param as string;
+            if (!string.IsNullOrEmpty(todoTitle))
+            {
+                ActiveTodos.Insert(0, new() { Id = _todoCounter++, Title = todoTitle });
+            }
+        }
+
+        public bool IsActiveTodoSelected()
+        {
+            return SelectedActiveTodo != null;
+        }
+
+        public bool IsCompletedTodoSelected()
+        {
+            return SelectedCompletedTodo != null;
+        }
+
 
         public void CompleteActiveTodo()
         {
@@ -43,7 +97,10 @@ namespace Week3Lab.ViewModels
                 todo.IsDone = true;
                 CompletedTodos.Insert(0, todo);
                 ActiveTodos.Remove(todo);
+                SelectedActiveTodo = null;
+                (CompleteActiveTodoCommand as Command)?.ChangeCanExecute();
             }
+
         }
 
         public void ReactivateCompletedTodo()
@@ -54,6 +111,8 @@ namespace Week3Lab.ViewModels
                 todo.IsDone = false;
                 ActiveTodos.Insert(0, todo);
                 CompletedTodos.Remove(todo);
+                SelectedCompletedTodo = null;
+                (ReactivateCompletedTodoCommand as Command)?.ChangeCanExecute();
             }
         }
 
@@ -63,6 +122,8 @@ namespace Week3Lab.ViewModels
             if (todo != null)
             {
                 ActiveTodos.Remove(todo);
+                SelectedActiveTodo = null;
+                (DeleteActiveTodoCommand as Command)?.ChangeCanExecute();
             }
 
         }
@@ -73,11 +134,9 @@ namespace Week3Lab.ViewModels
             if (todo != null)
             {
                 CompletedTodos.Remove(todo);
+                SelectedCompletedTodo = null;
+                (DeleteCompletedTodoCommand as Command)?.ChangeCanExecute();
             }
         }
-
-        public ICommand DeleteActiveTodoCommand { get; set; }
-        public ICommand DeleteCompletedTodoCommand { get; set; }
-
     }
 }
