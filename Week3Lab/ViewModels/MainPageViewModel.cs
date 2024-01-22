@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Week3Lab.Models;
 
 namespace Week3Lab.ViewModels
@@ -37,19 +38,46 @@ namespace Week3Lab.ViewModels
         public void CompleteActiveTodo()
         {
             var todo = SelectedActiveTodo;
-            todo.IsDone = true;
-            CompletedTodos.Add(todo);
-            ActiveTodos.Remove(todo);
+            if (todo != null)
+            {
+                todo.IsDone = true;
+                CompletedTodos.Insert(0, todo);
+                ActiveTodos.Remove(todo);
+            }
+        }
+
+        public void ReactivateCompletedTodo()
+        {
+            var todo = SelectedCompletedTodo;
+            if (todo != null)
+            {
+                todo.IsDone = false;
+                ActiveTodos.Insert(0, todo);
+                CompletedTodos.Remove(todo);
+            }
         }
 
         public void DeleteActiveTodo()
         {
-            ActiveTodos.Remove(SelectedActiveTodo);
+            var todo = SelectedActiveTodo;
+            if (todo != null)
+            {
+                ActiveTodos.Remove(todo);
+            }
+
         }
 
         public void DeleteCompletedTodo()
         {
-            CompletedTodos.Remove(SelectedCompletedTodo);
+            var todo = SelectedCompletedTodo;
+            if (todo != null)
+            {
+                CompletedTodos.Remove(todo);
+            }
         }
+
+        public ICommand DeleteActiveTodoCommand { get; set; }
+        public ICommand DeleteCompletedTodoCommand { get; set; }
+
     }
 }
