@@ -9,3 +9,6 @@ In this Lab you will be Modifying the application to provide the following:
 
 ## Getting Started
 Find great icons and images at: https://pictogrammers.com/library/mdi/
+
+## Suggestion using ImageButton
+![image](Example.png)
