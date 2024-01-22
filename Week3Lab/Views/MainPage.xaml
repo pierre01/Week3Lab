@@ -2,25 +2,62 @@
 <ContentPage x:Class="Week3Lab.Views.MainPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="8">
-
-            <HorizontalStackLayout>
-                <Entry x:Name="TodoTitleEntry" Text="" WidthRequest="220" />
-                <Button Margin="8,0,0,0" Clicked="OnTodoAdded" Text="Add" />
-            </HorizontalStackLayout>
-
+        <VerticalStackLayout Padding="20,0" Spacing="8">
+            <Grid ColumnDefinitions="*,70">
+                <Entry x:Name="TodoTitleEntry" Text="" />
+                <Button
+                    Grid.Column="1" Margin="8,0,0,0"
+                    Clicked="OnTodoAdded" Text="Add" />
+            </Grid>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
             <Border Margin="0,4,0,8" BackgroundColor="Gray" HeightRequest="1" />
-            <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
-            <ListView x:Name="ActiveTodoListView" ItemsSource="{Binding ActiveTodos}" MinimumHeightRequest="50" />
+            <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
+                <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
+                <ListView
+                    x:Name="ActiveTodoListView" Grid.Row="1"
+                    ItemsSource="{Binding ActiveTodos}"
+                    MinimumHeightRequest="50"
+                    SelectedItem="{Binding SelectedActiveTodo}" />
+                <VerticalStackLayout
+                    Grid.RowSpan="2" Grid.Column="1"
+                    HorizontalOptions="End" VerticalOptions="Start">
+                    <ImageButton
+                        Margin="0,0,0,8"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="OnCheckActiveTodo" HeightRequest="32"
+                        Source="check.png" WidthRequest="32" />
+                    <ImageButton
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="OnDeleteActiveTodo" HeightRequest="32"
+                        Source="trash.png" WidthRequest="32" />
+                </VerticalStackLayout>
+            </Grid>
             <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
-            <Label
-                FontAttributes="Bold" Opacity="0.8"
-                Text="Completed:"
-                TextColor="{StaticResource PrimaryDark}" />
-            <ListView
-                x:Name="CompletedTodoListView"
-                ItemsSource="{Binding CompletedTodos}"
-                MinimumHeightRequest="50" Opacity="0.5" />
+            <Grid ColumnDefinitions="*,50" RowDefinitions="30,1*">
+                <Label
+                    FontAttributes="Bold" Opacity="0.8"
+                    Text="Completed:"
+                    TextColor="{StaticResource PrimaryDark}" />
+                <ListView
+                    x:Name="CompletedTodoListView" Grid.Row="1"
+                    ItemsSource="{Binding CompletedTodos}"
+                    MinimumHeightRequest="50" Opacity="0.5"
+                    SelectedItem="{Binding SelectedCompletedTodo}" />
+                <VerticalStackLayout
+                    Grid.RowSpan="2" Grid.Column="1"
+                    HorizontalOptions="End" VerticalOptions="Start">
+                    <ImageButton
+                        Margin="0,0,0,8"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="OnCheckCompletedTodo" HeightRequest="24"
+                        Source="uncheck.png" WidthRequest="24" />
+                    <ImageButton
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="OnDeleteCompletedTodo" HeightRequest="24"
+                        Source="trash.png" WidthRequest="24" />
+                </VerticalStackLayout>
+            </Grid>
+
         </VerticalStackLayout>
     </ScrollView>
 
