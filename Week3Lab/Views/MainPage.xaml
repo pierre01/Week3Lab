@@ -6,69 +6,83 @@
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     x:DataType="vm:MainPageViewModel">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20,0" Spacing="8">
-            <Grid ColumnDefinitions="*,70">
-                <Entry x:Name="TodoTitleEntry" Text="" />
-                <Button
-                    Grid.Column="1" Margin="8,0,0,0"
-                    Command="{Binding AddTodoCommand}"
-                    CommandParameter="{Binding Source={x:Reference TodoTitleEntry}, Path=Text}" Text="Add" />
-            </Grid>
-            <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
-            <Border Margin="0,4,0,8" BackgroundColor="Gray" HeightRequest="1" />
-            <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
-                <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
-                <ListView
-                    x:Name="ActiveTodoListView" Grid.Row="1"
-                    ItemsSource="{Binding ActiveTodos}"
-                    MinimumHeightRequest="50"
-                    SelectedItem="{Binding SelectedActiveTodo}" />
-                <VerticalStackLayout
-                    Grid.RowSpan="2" Grid.Column="1"
-                    HorizontalOptions="End" VerticalOptions="Start">
-                    <ImageButton
-                        Margin="0,0,0,8"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding CompleteActiveTodoCommand}"
-                        HeightRequest="24" Source="check.png"
-                        WidthRequest="24" />
-                    <ImageButton
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding DeleteActiveTodoCommand}"
-                        HeightRequest="24" Source="trash.png"
-                        WidthRequest="24" />
-                </VerticalStackLayout>
-            </Grid>
-            <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
-            <Grid ColumnDefinitions="*,50" RowDefinitions="30,1*">
-                <Label
-                    FontAttributes="Bold" Opacity="0.8"
-                    Text="Completed:"
-                    TextColor="{StaticResource PrimaryDark}" />
-                <ListView
-                    x:Name="CompletedTodoListView" Grid.Row="1"
-                    ItemsSource="{Binding CompletedTodos}"
-                    MinimumHeightRequest="50" Opacity="0.5"
-                    SelectedItem="{Binding SelectedCompletedTodo}" />
-                <VerticalStackLayout
-                    Grid.RowSpan="2" Grid.Column="1"
-                    HorizontalOptions="End" VerticalOptions="Start">
-                    <ImageButton
-                        Margin="0,0,0,8"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding ReactivateCompletedTodoCommand}"
-                        HeightRequest="24" Source="uncheck.png"
-                        WidthRequest="24" />
-                    <ImageButton
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding DeleteCompletedTodoCommand}"
-                        HeightRequest="24" Source="trash.png"
-                        WidthRequest="24" />
-                </VerticalStackLayout>
-            </Grid>
+    <Grid Padding="20,0" RowDefinitions="Auto,Auto,*">
+        <Grid ColumnDefinitions="*,70">
+            <Entry x:Name="TodoTitleEntry" Text="{Binding NewTodoText, Mode=TwoWay}" />
+            <Button
+                Grid.Column="1" Margin="8,0,0,0"
+                Command="{Binding AddTodoCommand}"
+                CommandParameter="{Binding Source={x:Reference TodoTitleEntry}, Path=Text}"
+                Text="Add" />
+        </Grid>
+        <Border
+            Grid.Row="1" Margin="0,4,0,8"
+            BackgroundColor="Gray" HeightRequest="1" />
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
+                <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
+                    <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
+                    <ListView
+                        x:Name="ActiveTodoListView" Grid.Row="1"
+                        ItemsSource="{Binding ActiveTodos}"
+                        MinimumHeightRequest="50"
+                        SelectedItem="{Binding SelectedActiveTodo}" />
+                    <VerticalStackLayout
+                        Grid.RowSpan="2" Grid.Column="1"
+                        HorizontalOptions="End" VerticalOptions="Start">
+                        <ImageButton
+                            Margin="0,0,0,8"
+                            BackgroundColor="{StaticResource White}"
+                            BorderColor="{StaticResource Gray300}"
+                            BorderWidth="1"
+                            Command="{Binding CompleteActiveTodoCommand}"
+                            HeightRequest="32" Source="check.png"
+                            WidthRequest="32" />
+                        <ImageButton
+                            BackgroundColor="{StaticResource White}"
+                            BorderColor="{StaticResource Gray300}"
+                            BorderWidth="1"
+                            Command="{Binding DeleteActiveTodoCommand}"
+                            HeightRequest="32" Source="trash.png"
+                            WidthRequest="32" />
+                    </VerticalStackLayout>
+                </Grid>
+                <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
+                <Grid ColumnDefinitions="*,50" RowDefinitions="30,1*">
+                    <Label
+                        FontAttributes="Bold" Opacity="0.8"
+                        Text="Completed:"
+                        TextColor="{StaticResource PrimaryDark}" />
+                    <ListView
+                        x:Name="CompletedTodoListView" Grid.Row="1"
+                        ItemsSource="{Binding CompletedTodos}"
+                        MinimumHeightRequest="50" Opacity="0.5"
+                        SelectedItem="{Binding SelectedCompletedTodo}" />
+                    <VerticalStackLayout
+                        Grid.RowSpan="2" Grid.Column="1"
+                        HorizontalOptions="End" VerticalOptions="Start">
+                        <ImageButton
+                            Margin="0,8,0,8"
+                            BackgroundColor="{StaticResource White}"
+                            BorderColor="{StaticResource Gray300}"
+                            BorderWidth="1"
+                            Command="{Binding ReactivateCompletedTodoCommand}"
+                            HeightRequest="32" Source="uncheck.png"
+                            WidthRequest="32" />
+                        <ImageButton
+                            BackgroundColor="{StaticResource White}"
+                            BorderColor="{StaticResource Gray300}"
+                            BorderWidth="1"
+                            Command="{Binding DeleteCompletedTodoCommand}"
+                            HeightRequest="32" Source="trash.png"
+                            WidthRequest="32" />
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
 
-        </VerticalStackLayout>
-    </ScrollView>
+
+        </ScrollView>
+    </Grid>
 
 </ContentPage>

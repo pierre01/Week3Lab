@@ -1,18 +1,30 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 using Week3Lab.Models;
 
 namespace Week3Lab.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         private Todo _selectedActiveTodo;
         private Todo _selectedCompletedTodo;
         private int _todoCounter;
+        private string _newTodoText;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<Todo> ActiveTodos { get; set; }
         public ObservableCollection<Todo> CompletedTodos { get; set; }
-
+        public string NewTodoText
+        {
+            get { return _newTodoText; }
+            set
+            {
+                _newTodoText = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NewTodoText)));
+            }
+        }
 
         public ICommand AddTodoCommand { get; set; }
         public ICommand DeleteActiveTodoCommand { get; set; }
@@ -62,7 +74,7 @@ namespace Week3Lab.ViewModels
                 new Todo { Id = 14, Title = "Doctor Appointment", IsDone = true },
             ];
 
-            AddTodoCommand = new Command(AddTodo);
+            AddTodoCommand = new Command(AddTodo, CanExecuteAdd);
             DeleteActiveTodoCommand = new Command(DeleteActiveTodo, IsActiveTodoSelected);
             DeleteCompletedTodoCommand = new Command(DeleteCompletedTodo, IsCompletedTodoSelected);
             CompleteActiveTodoCommand = new Command(CompleteActiveTodo, IsActiveTodoSelected);
@@ -71,11 +83,17 @@ namespace Week3Lab.ViewModels
 
         private void AddTodo(object param)
         {
+            // Note: param is the value passed from the UI but it is also NewTodoText
             string todoTitle = param as string;
             if (!string.IsNullOrEmpty(todoTitle))
             {
                 ActiveTodos.Insert(0, new() { Id = _todoCounter++, Title = todoTitle });
+                NewTodoText = string.Empty;
             }
+        }
+        public bool CanExecuteAdd(object param)
+        {
+            return !string.IsNullOrEmpty(NewTodoText);
         }
 
         public bool IsActiveTodoSelected()
