@@ -83,7 +83,7 @@ namespace Week3Lab.ViewModels
 
         private void AddTodo(object param)
         {
-            // Note: param is the value passed from the UI but it is also NewTodoText
+            // Note: param is the value passed from the UI but it is also NewTodoText - You can use either
             string todoTitle = param as string;
             if (!string.IsNullOrEmpty(todoTitle))
             {
