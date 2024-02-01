@@ -3,8 +3,16 @@
     x:Class="Week3Lab.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Week3Lab.Models"
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     x:DataType="vm:MainPageViewModel">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="TodoTemplate">
+            <ViewCell x:DataType="model:Todo">
+                <Label FontSize="14" Text="{Binding Title}" TextColor="Red" />
+            </ViewCell>  
+        </DataTemplate>
+    </ContentPage.Resources>
 
     <Grid Padding="20,0" RowDefinitions="Auto,Auto,*">
         <Grid ColumnDefinitions="*,70">
@@ -25,6 +33,7 @@
                     <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
                     <ListView
                         x:Name="ActiveTodoListView" Grid.Row="1"
+                        ItemTemplate="{StaticResource TodoTemplate}"
                         ItemsSource="{Binding ActiveTodos}"
                         MinimumHeightRequest="50"
                         SelectedItem="{Binding SelectedActiveTodo}" />

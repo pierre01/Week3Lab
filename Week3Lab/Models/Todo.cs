@@ -6,10 +6,10 @@
         public bool IsDone { get; set; }
         public string Title { get; set; }
 
-        public override string ToString()
-        {
-            return Title;
-        }
+        //public override string ToString()
+        //{
+        //    return Title;
+        //}
 
         //public DateTime CreatedOn { get; set; } = DateTime.Now;
         //public DateTime CompletedOn { get; set; }
