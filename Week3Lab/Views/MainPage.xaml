@@ -7,10 +7,25 @@
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     x:DataType="vm:MainPageViewModel">
     <ContentPage.Resources>
-        <DataTemplate x:Key="TodoTemplate">
+        <DataTemplate x:Key="TodoTemplate2">
             <ViewCell x:DataType="model:Todo">
-                <Label FontSize="14" Text="{Binding Title}" TextColor="Red" />
-            </ViewCell>  
+                <HorizontalStackLayout>
+                    <Image Margin="0,0,8,0" Source="check.png" />
+                    <Label
+                        FontSize="14"
+                        Text="{Binding Title}"
+                        TextColor="DarkGray" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="TodoTemplate">
+            <HorizontalStackLayout>
+                <Image Margin="0,8,8,8" Source="circle_outline.png" />
+                <Label
+                    x:DataType="model:Todo" FontSize="14"
+                    Text="{Binding Title}"
+                    TextColor="Black" VerticalOptions="Center" />
+            </HorizontalStackLayout>
         </DataTemplate>
     </ContentPage.Resources>
 
@@ -31,12 +46,13 @@
                 <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
                 <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
                     <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
-                    <ListView
+                    <CollectionView
                         x:Name="ActiveTodoListView" Grid.Row="1"
                         ItemTemplate="{StaticResource TodoTemplate}"
                         ItemsSource="{Binding ActiveTodos}"
                         MinimumHeightRequest="50"
-                        SelectedItem="{Binding SelectedActiveTodo}" />
+                        SelectedItem="{Binding SelectedActiveTodo}"
+                        SelectionMode="Single" />
                     <VerticalStackLayout
                         Grid.RowSpan="2" Grid.Column="1"
                         HorizontalOptions="End" VerticalOptions="Start">
@@ -59,14 +75,12 @@
                 </Grid>
                 <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
                 <Grid ColumnDefinitions="*,50" RowDefinitions="30,1*">
-                    <Label
-                        FontAttributes="Bold" Opacity="0.8"
-                        Text="Completed:"
-                        TextColor="{StaticResource PrimaryDark}" />
+                    <Label FontAttributes="Bold" Text="Completed:" TextColor="{StaticResource PrimaryDark}" />
                     <ListView
                         x:Name="CompletedTodoListView" Grid.Row="1"
+                        ItemTemplate="{StaticResource TodoTemplate2}"
                         ItemsSource="{Binding CompletedTodos}"
-                        MinimumHeightRequest="50" Opacity="0.5"
+                        MinimumHeightRequest="50"
                         SelectedItem="{Binding SelectedCompletedTodo}" />
                     <VerticalStackLayout
                         Grid.RowSpan="2" Grid.Column="1"
