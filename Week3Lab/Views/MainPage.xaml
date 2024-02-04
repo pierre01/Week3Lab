@@ -7,7 +7,7 @@
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     x:DataType="vm:MainPageViewModel">
     <ContentPage.Resources>
-        <DataTemplate x:Key="TodoTemplate2">
+        <DataTemplate x:Key="CompletedTodoTemplate">
             <ViewCell x:DataType="model:Todo">
                 <HorizontalStackLayout>
                     <Image Margin="0,0,8,0" Source="check.png" />
@@ -78,7 +78,7 @@
                     <Label FontAttributes="Bold" Text="Completed:" TextColor="{StaticResource PrimaryDark}" />
                     <ListView
                         x:Name="CompletedTodoListView" Grid.Row="1"
-                        ItemTemplate="{StaticResource TodoTemplate2}"
+                        ItemTemplate="{StaticResource CompletedTodoTemplate}"
                         ItemsSource="{Binding CompletedTodos}"
                         MinimumHeightRequest="50"
                         SelectedItem="{Binding SelectedCompletedTodo}" />
