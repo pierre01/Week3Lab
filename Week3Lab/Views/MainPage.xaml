@@ -14,7 +14,7 @@
                     <Label
                         FontSize="14"
                         Text="{Binding Title}"
-                        TextColor="DarkGray" VerticalOptions="Center" />
+                        TextColor="Black" VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </ViewCell>
         </DataTemplate>
@@ -45,7 +45,7 @@
             <VerticalStackLayout HorizontalOptions="FillAndExpand">
                 <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
                 <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
-                    <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource PrimaryDark}" />
+                    <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource Primary}" />
                     <CollectionView
                         x:Name="ActiveTodoListView" Grid.Row="1"
                         ItemTemplate="{StaticResource TodoTemplate}"
@@ -74,8 +74,11 @@
                     </VerticalStackLayout>
                 </Grid>
                 <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
-                <Grid ColumnDefinitions="*,50" RowDefinitions="30,1*">
-                    <Label FontAttributes="Bold" Text="Completed:" TextColor="{StaticResource PrimaryDark}" />
+                <Grid ColumnDefinitions="*,50" RowDefinitions="40,1*">
+                    <Label
+                        Margin="0,8,0,0" FontAttributes="Bold"
+                        Text="Completed:"
+                        TextColor="{StaticResource Primary}" />
                     <ListView
                         x:Name="CompletedTodoListView" Grid.Row="1"
                         ItemTemplate="{StaticResource CompletedTodoTemplate}"
