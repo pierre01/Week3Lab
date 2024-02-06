@@ -24,6 +24,17 @@ Starting with the Week 3 Lab, you will be adding the following features:
     
    > We will cover some of this in class.
 
+## Week 5 Lab
+Starting with the Week 4 Lab, you will be adding the following features:
+1) Switch the ListView control to a CollectionView Control.
+2) Create Templates for the Todos in the Active and Completed Todos lists.
+    * Create a resource template for the Active Todo template with the uncheck icon on the left
+    * Create a resource template for the Completed Todo template with a different background color and the checked icon on the left.
+    * Add an Edit button to the Active Todo List that will allow the user to edit details of the todo.
+    * Add a new property to the Todo class called DueDate (reflected in the template
+
+> We will cover some of this in class.
+
 > `Bonus:` Use the MVVM Toolkit `CommunityToolkit.Mvvm` to encapsulate properties and Commands.
 
 ## Getting Started
