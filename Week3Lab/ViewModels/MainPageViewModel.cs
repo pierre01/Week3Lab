@@ -10,6 +10,7 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CompleteActiveTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeleteActiveTodoCommand))]
+    [NotifyCanExecuteChangedFor(nameof(EditActiveTodoCommand))]
     private Todo _selectedActiveTodo;
 
     [ObservableProperty]
@@ -104,6 +105,16 @@ public partial class MainPageViewModel : ObservableObject
         {
             ActiveTodos.Remove(SelectedActiveTodo);
             SelectedActiveTodo = null;
+        }
+
+    }
+
+    [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
+    public void EditActiveTodo()
+    {
+        if (SelectedActiveTodo != null)
+        {
+            // Navigate to the EditTodoPage and pass the selected todo
         }
 
     }

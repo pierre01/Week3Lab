@@ -65,13 +65,22 @@
                             HeightRequest="32" Source="check.png"
                             WidthRequest="32" />
                         <ImageButton
+                            Margin="0,0,0,8"
+                            BackgroundColor="{StaticResource White}"
+                            BorderColor="{StaticResource Gray300}"
+                            BorderWidth="1"
+                            Command="{Binding EditActiveTodoCommand}"
+                            HeightRequest="32" Source="pencil.png"
+                            WidthRequest="32" />
+                        <ImageButton
                             BackgroundColor="{StaticResource White}"
                             BorderColor="{StaticResource Gray300}"
                             BorderWidth="1"
                             Command="{Binding DeleteActiveTodoCommand}"
                             HeightRequest="32" Source="trash.png"
-                            WidthRequest="32" />
+                            WidthRequest="32" />                       
                     </VerticalStackLayout>
+
                 </Grid>
                 <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
                 <Grid ColumnDefinitions="*,50" RowDefinitions="40,1*">
