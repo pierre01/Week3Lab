@@ -21,8 +21,9 @@ Starting with the Week 3 Lab, you will be adding the following features:
          * CreateTodoCommand can execute if there is some text in the Entry for the title (bind it to a field in the ViewModel).
          * CompleteTodoCommand and DeleteTodoCommand can execute only if there is a todo selected in the Active Todos list.
          * DeleteCompletedTodoCommand and ActivateTodoCommand can execute only if there is a todo selected in the Completed Todos list.
+
+> `Bonus:` Use the MVVM Toolkit `CommunityToolkit.Mvvm` to encapsulate properties and Commands.
     
-   >  `Bonus:` In the MainPage display overdue todos in red.
 
    > We will cover some of this in class.
 
@@ -38,8 +39,9 @@ Starting with the Week 4 Lab, you will be adding the following features:
       * Create a DatePicker control to allow the user to select a due date for the todo.
 
 > We will cover some of this in class.
+   
+>  `Bonus:` In the MainPage display overdue todos in red.
 
-> `Bonus:` Use the MVVM Toolkit `CommunityToolkit.Mvvm` to encapsulate properties and Commands.
 
 ## Getting Started
 Find great icons and images at: https://pictogrammers.com/library/mdi/
