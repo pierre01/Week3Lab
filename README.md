@@ -22,6 +22,8 @@ Starting with the Week 3 Lab, you will be adding the following features:
          * CompleteTodoCommand and DeleteTodoCommand can execute only if there is a todo selected in the Active Todos list.
          * DeleteCompletedTodoCommand and ActivateTodoCommand can execute only if there is a todo selected in the Completed Todos list.
     
+   >  `Bonus:` In the MainPage display overdue todos in red.
+
    > We will cover some of this in class.
 
 ## Week 5 Lab
@@ -31,7 +33,9 @@ Starting with the Week 4 Lab, you will be adding the following features:
     * Create a resource template for the Active Todo template with the uncheck icon on the left
     * Create a resource template for the Completed Todo template with a different background color and the checked icon on the left.
     * Add an Edit button to the Active Todo List that will allow the user to edit details of the todo.
-    * Add a new property to the Todo class called DueDate (reflected in the template
+    * Add a new property to the Todo class called DueDate (reflected in the template)
+    * Create new Page EditTodoPage with a ViewModel containing the selected Todo passed by the previous page    
+      * Create a DatePicker control to allow the user to select a due date for the todo.
 
 > We will cover some of this in class.
 
