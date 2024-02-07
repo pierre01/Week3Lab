@@ -12,7 +12,7 @@
         //}
 
         //public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public DateTime DueOn { get; set; } = DateTime.Now;
+        public DateTime? DueOn { get; set; } = DateTime.Now;
         //public DateTime CompletedOn { get; set; }
     }
 }
