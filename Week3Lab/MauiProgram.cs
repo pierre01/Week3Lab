@@ -32,6 +32,7 @@ namespace Week3Lab
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddSingleton<ITodoRepository, TodoRepository>();
+            mauiAppBuilder.Services.AddSingleton<INavigationService, NavigationService>();
             return mauiAppBuilder;
         }
 
@@ -44,7 +45,7 @@ namespace Week3Lab
         public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddSingleton<MainPage>();
-            //mauiAppBuilder.Services.AddTransient<PersonDetailsView>();
+            mauiAppBuilder.Services.AddTransient<EditTodoPage>();
             return mauiAppBuilder;
         }
 

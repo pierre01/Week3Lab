@@ -73,7 +73,7 @@ namespace Week3Lab.Services
 
                 todo.IsDone = modifiedTodo.IsDone;
                 todo.DueOn = modifiedTodo.DueOn;
-                todo.Description = modifiedTodo.Description;
+                todo.Notes = modifiedTodo.Notes;
                 todo.LastModifiedOn = DateTime.Now;
                 return true;
             }
