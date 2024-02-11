@@ -5,12 +5,9 @@ namespace Week3Lab.Views;
 public partial class MainPage : ContentPage
 {
 
-    private MainPageViewModel _viewModel;
-
-    public MainPage()
+    public MainPage(MainPageViewModel viewModel)
     {
-        _viewModel = new MainPageViewModel();
-        BindingContext = _viewModel;
+        BindingContext = viewModel;
         InitializeComponent();
     }
 

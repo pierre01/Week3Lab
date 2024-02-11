@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Week3Lab.ViewModels
 {
-    class EditTodoViewModel
+    class EditTodoViewModel : ObservableObject, IQueryAttributable
     {
+        private TodoViewModel? _todo;
+
+        public EditTodoViewModel()
+        {
+
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            _todo = query["Todo"] as TodoViewModel;
+        }
     }
 }

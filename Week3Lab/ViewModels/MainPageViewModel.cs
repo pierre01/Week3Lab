@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using Week3Lab.Models;
+using Week3Lab.Services;
+using Week3Lab.Views;
 
 namespace Week3Lab.ViewModels;
 
@@ -11,42 +13,40 @@ public partial class MainPageViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(CompleteActiveTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeleteActiveTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(EditActiveTodoCommand))]
-    private Todo _selectedActiveTodo;
+    private TodoViewModel _selectedActiveTodo;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(DeleteCompletedTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(ReactivateCompletedTodoCommand))]
-    private Todo _selectedCompletedTodo;
+    private TodoViewModel _selectedCompletedTodo;
 
     private int _todoCounter;
 
     [ObservableProperty]
     private string _newTodoText;
+    private readonly ITodoRepository _todoRepository;
+    private readonly INavigationService _navigationService;
 
-    public ObservableCollection<Todo> ActiveTodos { get; set; }
-    public ObservableCollection<Todo> CompletedTodos { get; set; }
+    public ObservableCollection<TodoViewModel> ActiveTodos { get; set; }
+    public ObservableCollection<TodoViewModel> CompletedTodos { get; set; }
 
-    public MainPageViewModel()
+    public MainPageViewModel(ITodoRepository todoRepository, INavigationService navigationService)
     {
-        ActiveTodos =
-        [
-            new Todo { Id = 1, Title = "CarWash", IsDone = false },
-            new Todo { Id = 2, Title = "Mow Lawn", IsDone = false },
-            new Todo { Id = 3, Title = "Trim Edges", IsDone = false },
-            new Todo { Id = 4, Title = "Repair Fence", IsDone = false },
-            new Todo { Id = 5, Title = "Pickup Kids", IsDone = false },
-            new Todo { Id = 6, Title = "Cook Dinner", IsDone = false },
-            new Todo { Id = 7, Title = "Book Ticket", IsDone = false },
-            new Todo { Id = 8, Title = "Buy Eggs", IsDone = false },
-            new Todo { Id = 9, Title = "Buy Orange Juice", IsDone = false },
-            new Todo { Id = 10, Title = "Pay Housekeeper", IsDone = false },
-        ];
-        CompletedTodos = [
-            new Todo { Id = 11, Title = "Call Mom", IsDone = true },
-            new Todo { Id = 12, Title = "Run 3 miles", IsDone = true },
-            new Todo { Id = 13, Title = "Clean Cat litter", IsDone = true },
-            new Todo { Id = 14, Title = "Doctor Appointment", IsDone = true },
-        ];
+        _todoRepository = todoRepository;
+        _navigationService = navigationService;
+        ActiveTodos = new ObservableCollection<TodoViewModel>();
+        CompletedTodos = new ObservableCollection<TodoViewModel>();
+        foreach (Todo todo in _todoRepository.GetAllTodos())
+        {
+            if (!todo.IsDone)
+            {
+                ActiveTodos.Add(new TodoViewModel(todo));
+            }
+            else
+            {
+                CompletedTodos.Add(new TodoViewModel(todo));
+            }
+        }
     }
 
     [RelayCommand(CanExecute = nameof(CanExecuteAdd))]
@@ -54,7 +54,8 @@ public partial class MainPageViewModel : ObservableObject
     {
         if (!string.IsNullOrEmpty(NewTodoText))
         {
-            ActiveTodos.Insert(0, new() { Id = _todoCounter++, Title = NewTodoText });
+            var todo = _todoRepository.Add(new() { Title = NewTodoText });
+            ActiveTodos.Insert(0, new TodoViewModel(todo));
             NewTodoText = string.Empty;
         }
     }
@@ -106,7 +107,6 @@ public partial class MainPageViewModel : ObservableObject
             ActiveTodos.Remove(SelectedActiveTodo);
             SelectedActiveTodo = null;
         }
-
     }
 
     [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
@@ -114,9 +114,13 @@ public partial class MainPageViewModel : ObservableObject
     {
         if (SelectedActiveTodo != null)
         {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Todo", SelectedActiveTodo },
+            };
             // Navigate to the EditTodoPage and pass the selected todo
+            _navigationService.GoToAsync(nameof(EditTodoPage), true, navigationParameter);
         }
-
     }
 
     [RelayCommand(CanExecute = nameof(IsCompletedTodoSelected))]

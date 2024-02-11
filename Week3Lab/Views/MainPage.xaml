@@ -7,22 +7,13 @@
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     x:DataType="vm:MainPageViewModel">
     <ContentPage.Resources>
-        <DataTemplate x:Key="CompletedTodoTemplate">
-            <ViewCell x:DataType="model:Todo">
-                <HorizontalStackLayout>
-                    <Image Margin="0,0,8,0" Source="check.png" />
-                    <Label
-                        FontSize="14"
-                        Text="{Binding Title}"
-                        TextColor="Black" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-            </ViewCell>
-        </DataTemplate>
         <DataTemplate x:Key="TodoTemplate">
-            <HorizontalStackLayout>
-                <Image Margin="0,8,8,8" Source="circle_outline.png" />
+            <HorizontalStackLayout x:DataType="vm:TodoViewModel">
+                <Image Margin="0,8,8,8" Source="circle_outline.png" IsVisible="{Binding IsNotDone}" />
+                <Image Margin="0,8,8,8" Source="check.png" IsVisible="{Binding IsDone}" />
+                
                 <Label
-                    x:DataType="model:Todo" FontSize="14"
+                     FontSize="14"
                     Text="{Binding Title}"
                     TextColor="Black" VerticalOptions="Center" />
             </HorizontalStackLayout>
@@ -88,9 +79,9 @@
                         Margin="0,8,0,0" FontAttributes="Bold"
                         Text="Completed:"
                         TextColor="{StaticResource Primary}" />
-                    <ListView
+                    <CollectionView
                         x:Name="CompletedTodoListView" Grid.Row="1"
-                        ItemTemplate="{StaticResource CompletedTodoTemplate}"
+                        ItemTemplate="{StaticResource TodoTemplate}"
                         ItemsSource="{Binding CompletedTodos}"
                         MinimumHeightRequest="50"
                         SelectedItem="{Binding SelectedCompletedTodo}" />
