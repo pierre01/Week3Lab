@@ -39,6 +39,7 @@ namespace Week3Lab
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddSingleton<MainPageViewModel>();
+            mauiAppBuilder.Services.AddSingleton<EditTodoViewModel>();
             return mauiAppBuilder;
         }
 

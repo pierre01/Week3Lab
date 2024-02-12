@@ -26,6 +26,7 @@ namespace Week3Lab.Services
                 new Todo { Id = 14, Title = "Doctor Appointment", IsDone = true },
             ];
         }
+
         public List<Todo> GetAllTodos()
         {
             return _todoList;
@@ -61,7 +62,6 @@ namespace Week3Lab.Services
             if (todo != null)
             {
                 todo.Title = modifiedTodo.Title;
-
                 if (todo.IsDone == false && modifiedTodo.IsDone)
                 {
                     todo.CompletedOn = DateTime.Now;
