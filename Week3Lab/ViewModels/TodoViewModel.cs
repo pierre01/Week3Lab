@@ -41,9 +41,12 @@ namespace Week3Lab.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsOverdue))]
+        [NotifyPropertyChangedFor(nameof(IsNotOverdue))]
         [NotifyPropertyChangedFor(nameof(HasDueDate))]
         [NotifyPropertyChangedFor(nameof(DueDateText))]
         private DateTime? _dueOn;
+
+        public bool IsNotOverdue => !IsOverdue && DueOn.HasValue;
 
         public bool IsOverdue
         {
@@ -91,7 +94,7 @@ namespace Week3Lab.ViewModels
                     }
                     else
                     {
-                        text = $"Completed on {_todo.CompletedOn}";
+                        text = $"Completed on {_todo.CompletedOn?.ToString("MM/dd/yyyy")}}";
                     }
                 }
                 return text;

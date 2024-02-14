@@ -41,6 +41,11 @@
                         Fill="Red" HeightRequest="8"
                         IsVisible="{Binding IsOverdue}"
                         VerticalOptions="Center" WidthRequest="8" />
+                        <Ellipse
+                        Grid.Row="1" Margin="4"
+                        Fill="Green" HeightRequest="8"
+                        IsVisible="{Binding IsNotOverdue}"
+                        VerticalOptions="Center" WidthRequest="8" />
                     <Label
                         Grid.Row="1" Grid.Column="1"
                         FontSize="10"
