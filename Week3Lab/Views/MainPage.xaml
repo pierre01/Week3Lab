@@ -8,20 +8,30 @@
     x:DataType="vm:MainPageViewModel">
     <ContentPage.Resources>
         <DataTemplate x:Key="TodoTemplate">
-            <HorizontalStackLayout x:DataType="vm:TodoViewModel" HorizontalOptions="FillAndExpand">
+            <!--  Change to grid layout  -->
+            <Grid
+                x:DataType="vm:TodoViewModel"
+                ColumnDefinitions="30,*" HeightRequest="44"
+                HorizontalOptions="FillAndExpand">
                 <ImageButton
-                    Margin="0,8,8,8" HeightRequest="22"
-                    IsVisible="{Binding IsNotDone}"
-                    CommandParameter="{Binding .}"
+                    Margin="8"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=CompleteActiveTodoCommand}"
+                    CommandParameter="{Binding .}"
+                    HeightRequest="22"
+                    IsVisible="{Binding IsNotDone}"
                     Source="circle_outline.png" WidthRequest="22" />
                 <ImageButton
-                    Margin="0,8,8,8" HeightRequest="22"
-                    CommandParameter="{Binding .}"
+                    Margin="8"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ReactivateCompletedTodoCommand}"
+                    CommandParameter="{Binding .}"
+                    HeightRequest="22"
                     IsVisible="{Binding IsDone}"
                     Source="check.png" WidthRequest="22" />
-                <Grid ColumnDefinitions="12,*,60,60" RowDefinitions="Auto,Auto" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Grid
+                    Grid.Column="1" ColumnDefinitions="12,*,40,48"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,Auto"
+                    VerticalOptions="Center">
                     <Label
                         Grid.ColumnSpan="2" FontSize="14"
                         Text="{Binding Title}"
@@ -37,10 +47,26 @@
                         IsVisible="{Binding HasDueDate}"
                         Text="{Binding DueDateText}"
                         VerticalOptions="Center" />
-                    <ImageButton Margin="40,0,0,0" IsVisible="{Binding IsSelected}" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" Source="pencil.png" WidthRequest="32" HeightRequest="32" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditActiveTodoCommand}" CommandParameter="{Binding .}" />
-                    <ImageButton Margin="40,0,0,0" IsVisible="{Binding IsSelected}" Grid.Column="3" Grid.RowSpan="2" VerticalOptions="Center" Source="trash.png" WidthRequest="32" HeightRequest="32" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteActiveTodoCommand}" CommandParameter="{Binding .}" />
+                    <ImageButton
+                        Grid.RowSpan="2" Grid.Column="2"
+                        Margin="16,0,0,0"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditTodoCommand}"
+                        CommandParameter="{Binding .}"
+                        HeightRequest="32"
+                        IsVisible="{Binding IsSelected}"
+                        Source="pencil.png" VerticalOptions="Center"
+                        WidthRequest="32" />
+                    <ImageButton
+                        Grid.RowSpan="2" Grid.Column="3"
+                        Margin="16,0,16,0"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteTodoCommand}"
+                        CommandParameter="{Binding .}"
+                        HeightRequest="32"
+                        IsVisible="{Binding IsSelected}"
+                        Source="trash.png" VerticalOptions="Center"
+                        WidthRequest="32" />
                 </Grid>
-            </HorizontalStackLayout>
+            </Grid>
         </DataTemplate>
     </ContentPage.Resources>
 
@@ -59,7 +85,7 @@
         <ScrollView Grid.Row="2">
             <VerticalStackLayout HorizontalOptions="FillAndExpand">
                 <HorizontalStackLayout HorizontalOptions="FillAndExpand" />
-                <Grid ColumnDefinitions="*,55" RowDefinitions="30,1*">
+                <Grid ColumnDefinitions="*" RowDefinitions="30,1*">
                     <Label FontAttributes="Bold" Text="Active:" TextColor="{StaticResource Primary}" />
 
                     <CollectionView
@@ -70,37 +96,10 @@
                         SelectedItem="{Binding SelectedActiveTodo}"
                         SelectionMode="Single" />
 
-                    <VerticalStackLayout
-                        Grid.RowSpan="2" Grid.Column="1"
-                        HorizontalOptions="End" VerticalOptions="Start">
-                        <ImageButton
-                            Margin="0,0,0,8"
-                            BackgroundColor="{StaticResource White}"
-                            BorderColor="{StaticResource Gray300}"
-                            BorderWidth="1"
-                            Command="{Binding CompleteActiveTodoCommand}"
-                            HeightRequest="32" Source="check.png"
-                            WidthRequest="32" />
-                        <ImageButton
-                            Margin="0,0,0,8"
-                            BackgroundColor="{StaticResource White}"
-                            BorderColor="{StaticResource Gray300}"
-                            BorderWidth="1"
-                            Command="{Binding EditActiveTodoCommand}"
-                            HeightRequest="32" Source="pencil.png"
-                            WidthRequest="32" />
-                        <ImageButton
-                            BackgroundColor="{StaticResource White}"
-                            BorderColor="{StaticResource Gray300}"
-                            BorderWidth="1"
-                            Command="{Binding DeleteActiveTodoCommand}"
-                            HeightRequest="32" Source="trash.png"
-                            WidthRequest="32" />
-                    </VerticalStackLayout>
 
                 </Grid>
                 <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
-                <Grid ColumnDefinitions="*,50" RowDefinitions="40,1*">
+                <Grid  RowDefinitions="40,1*">
                     <Label
                         Margin="0,8,0,0" FontAttributes="Bold"
                         Text="Completed:"
@@ -113,25 +112,7 @@
                         MinimumHeightRequest="50"
                         SelectedItem="{Binding SelectedCompletedTodo}"
                         SelectionMode="Single" />
-                    <VerticalStackLayout
-                        Grid.RowSpan="2" Grid.Column="1"
-                        HorizontalOptions="End" VerticalOptions="Start">
-                        <ImageButton
-                            Margin="0,8,0,8"
-                            BackgroundColor="{StaticResource White}"
-                            BorderColor="{StaticResource Gray300}"
-                            BorderWidth="1"
-                            Command="{Binding ReactivateCompletedTodoCommand}"
-                            HeightRequest="32" Source="uncheck.png"
-                            WidthRequest="32" />
-                        <ImageButton
-                            BackgroundColor="{StaticResource White}"
-                            BorderColor="{StaticResource Gray300}"
-                            BorderWidth="1"
-                            Command="{Binding DeleteCompletedTodoCommand}"
-                            HeightRequest="32" Source="trash.png"
-                            WidthRequest="32" />
-                    </VerticalStackLayout>
+
                 </Grid>
             </VerticalStackLayout>
 

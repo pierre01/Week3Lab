@@ -51,8 +51,13 @@ namespace Week3Lab.ViewModels
                 _repositoryService.Update(_todo.TodoModel);
             }
 
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "Todo", _todo },
+            };
+            await _navigationService.GoToAsync("//MainPage", true, navigationParameter);
             // return to the main page
-            await _navigationService.GoBackAsync(true);
+            //await _navigationService.GoBackAsync(true);
         }
 
         [RelayCommand]

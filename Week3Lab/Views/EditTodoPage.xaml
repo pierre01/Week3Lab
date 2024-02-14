@@ -27,8 +27,8 @@
                 Grid.Column="1" Placeholder="Description"
                 Text="{Binding Notes}" />
             <HorizontalStackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
-                <Button Margin="8" Command="{Binding CancelCommand}" Text="Cancel" WidthRequest="60" />
-                <Button Margin="8" Command="{Binding SaveCommand}" Text="Save" WidthRequest="60" />
+                <Button Margin="8" Command="{Binding CancelCommand}" Text="Cancel" WidthRequest="90" />
+                <Button Margin="8" Command="{Binding SaveCommand}" Text="Save" WidthRequest="90" />
             </HorizontalStackLayout>
 
         </Grid>
