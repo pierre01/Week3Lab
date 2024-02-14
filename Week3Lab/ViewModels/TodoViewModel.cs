@@ -58,29 +58,29 @@ namespace Week3Lab.ViewModels
             }
         }
 
-        public bool HasDueDate => DueOn != null;
+        public bool HasDueDate => DueOn != null || IsDone;
 
         public string DueDateText
         {
             get
             {
                 var text = string.Empty;
-                if (DueOn == null) return text;
-                if (IsOverdue && IsNotDone)
+                if (IsNotDone)
                 {
-                    int daysSinceDue = (int)(DateTime.Today - DueOn).Value.TotalDays;
-                    if (daysSinceDue == 1)
+                    if (DueOn == null) return text;
+                    if (IsOverdue)
                     {
-                        text = "Due Yesterday";
+                        int daysSinceDue = (int)(DateTime.Today - DueOn).Value.TotalDays;
+                        if (daysSinceDue == 1)
+                        {
+                            text = "Due Yesterday";
+                        }
+                        else if (daysSinceDue > 1)
+                        {
+                            text = $"Due {daysSinceDue} days ago";
+                        }
                     }
-                    else if (daysSinceDue > 1)
-                    {
-                        text = $"Due {daysSinceDue} days ago";
-                    }
-                }
-                else // Not overdue
-                {
-                    if (IsNotDone)
+                    else // Not overdue
                     {
                         int daysUntilDue = (int)(DueOn - DateTime.Today).Value.TotalDays;
                         if (daysUntilDue == 1)
@@ -91,11 +91,12 @@ namespace Week3Lab.ViewModels
                         {
                             text = $"Due in {daysUntilDue} days";
                         }
+
                     }
-                    else
-                    {
-                        text = $"Completed on {_todo.CompletedOn?.ToString("MM/dd/yyyy")}";
-                    }
+                }
+                else // IsDone
+                {
+                    text = $"Completed on {_todo.CompletedOn?.ToString("MM/dd/yyyy")}";
                 }
                 return text;
             }
@@ -107,10 +108,15 @@ namespace Week3Lab.ViewModels
         public TodoViewModel(Todo todo)
         {
             _todo = todo;
-            Title = todo.Title;
-            IsDone = todo.IsDone;
-            DueOn = todo.DueOn;
             Id = todo.Id;
+            Title = todo.Title;
+
+            // we don't use the property because we don't want to trigger the setter
+            // that will change the completedOn date
+            _isDone = todo.IsDone;
+
+            Notes = todo.Notes;
+            DueOn = todo.DueOn;
         }
 
     }

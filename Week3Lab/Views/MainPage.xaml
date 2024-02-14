@@ -19,14 +19,18 @@
                     CommandParameter="{Binding .}"
                     HeightRequest="22"
                     IsVisible="{Binding IsNotDone}"
-                    Source="circle_outline.png" WidthRequest="22" />
+                    Source="circle_outline.png"
+                    ToolTipProperties.Text="Complete"
+                    WidthRequest="22" />
                 <ImageButton
                     Margin="8"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ReactivateCompletedTodoCommand}"
                     CommandParameter="{Binding .}"
                     HeightRequest="22"
                     IsVisible="{Binding IsDone}"
-                    Source="check.png" WidthRequest="22" />
+                    Source="check.png"
+                    ToolTipProperties.Text="Move to Active"
+                    WidthRequest="22" />
                 <Grid
                     Grid.Column="1" ColumnDefinitions="12,*,40,48"
                     HorizontalOptions="FillAndExpand"
@@ -41,7 +45,7 @@
                         Fill="Red" HeightRequest="8"
                         IsVisible="{Binding IsOverdue}"
                         VerticalOptions="Center" WidthRequest="8" />
-                        <Ellipse
+                    <Ellipse
                         Grid.Row="1" Margin="4"
                         Fill="Green" HeightRequest="8"
                         IsVisible="{Binding IsNotOverdue}"
@@ -59,8 +63,9 @@
                         CommandParameter="{Binding .}"
                         HeightRequest="32"
                         IsVisible="{Binding IsSelected}"
-                        Source="pencil.png" VerticalOptions="Center"
-                        WidthRequest="32" />
+                        Source="pencil.png"
+                        ToolTipProperties.Text="Edit..."
+                        VerticalOptions="Center" WidthRequest="32" />
                     <ImageButton
                         Grid.RowSpan="2" Grid.Column="3"
                         Margin="16,0,16,0"
@@ -68,8 +73,8 @@
                         CommandParameter="{Binding .}"
                         HeightRequest="32"
                         IsVisible="{Binding IsSelected}"
-                        Source="trash.png" VerticalOptions="Center"
-                        WidthRequest="32" />
+                        Source="trash.png" ToolTipProperties.Text="Delete"
+                        VerticalOptions="Center" WidthRequest="32" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -104,7 +109,7 @@
 
                 </Grid>
                 <Border Margin="0,8,0,0" BackgroundColor="Gray" HeightRequest="1" />
-                <Grid  RowDefinitions="40,1*">
+                <Grid RowDefinitions="40,1*">
                     <Label
                         Margin="0,8,0,0" FontAttributes="Bold"
                         Text="Completed:"
