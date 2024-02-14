@@ -2,7 +2,9 @@
 
 namespace Week3Lab.Services
 {
-
+    /// <summary>
+    /// Repository CRUD operations for Todo items
+    /// </summary>
     public interface ITodoRepository
     {
         // CREATE
@@ -12,6 +14,7 @@ namespace Week3Lab.Services
         List<Todo> GetAllTodos();
         // GetAllCompletedTodos();
         // GetAllActiveTodos();
+
         Todo? GetTodoById(int id);
 
         // UPDATE

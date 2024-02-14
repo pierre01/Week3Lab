@@ -8,26 +8,38 @@
     x:DataType="vm:MainPageViewModel">
     <ContentPage.Resources>
         <DataTemplate x:Key="TodoTemplate">
-            <HorizontalStackLayout x:DataType="vm:TodoViewModel">
-                <Image
-                    Margin="0,8,8,8" HeightRequest="32"
+            <HorizontalStackLayout x:DataType="vm:TodoViewModel" HorizontalOptions="FillAndExpand">
+                <ImageButton
+                    Margin="0,8,8,8" HeightRequest="22"
                     IsVisible="{Binding IsNotDone}"
-                    Source="circle_outline.png" WidthRequest="32" />
-                <Image
-                    Margin="0,8,8,8" HeightRequest="32"
+                    CommandParameter="{Binding .}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=CompleteActiveTodoCommand}"
+                    Source="circle_outline.png" WidthRequest="22" />
+                <ImageButton
+                    Margin="0,8,8,8" HeightRequest="22"
+                    CommandParameter="{Binding .}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=ReactivateCompletedTodoCommand}"
                     IsVisible="{Binding IsDone}"
-                    Source="check.png" WidthRequest="32" />
-                <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                    <Label FontSize="14" Text="{Binding Title}" VerticalOptions="Center" />
-                    <HorizontalStackLayout  IsVisible="{Binding HasDueDate}" >
-                        <Ellipse
-                            Margin="4" Fill="Red"
-                            HeightRequest="8"
-                            IsVisible="{Binding IsOverdue}"
-                            VerticalOptions="Center" WidthRequest="8" />
-                        <Label FontSize="10" Text="{Binding DueDateText}" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+                    Source="check.png" WidthRequest="22" />
+                <Grid ColumnDefinitions="12,*,60,60" RowDefinitions="Auto,Auto" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Label
+                        Grid.ColumnSpan="2" FontSize="14"
+                        Text="{Binding Title}"
+                        VerticalOptions="Center" />
+                    <Ellipse
+                        Grid.Row="1" Margin="4"
+                        Fill="Red" HeightRequest="8"
+                        IsVisible="{Binding IsOverdue}"
+                        VerticalOptions="Center" WidthRequest="8" />
+                    <Label
+                        Grid.Row="1" Grid.Column="1"
+                        FontSize="10"
+                        IsVisible="{Binding HasDueDate}"
+                        Text="{Binding DueDateText}"
+                        VerticalOptions="Center" />
+                    <ImageButton Margin="40,0,0,0" IsVisible="{Binding IsSelected}" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" Source="pencil.png" WidthRequest="32" HeightRequest="32" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditActiveTodoCommand}" CommandParameter="{Binding .}" />
+                    <ImageButton Margin="40,0,0,0" IsVisible="{Binding IsSelected}" Grid.Column="3" Grid.RowSpan="2" VerticalOptions="Center" Source="trash.png" WidthRequest="32" HeightRequest="32" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteActiveTodoCommand}" CommandParameter="{Binding .}" />
+                </Grid>
             </HorizontalStackLayout>
         </DataTemplate>
     </ContentPage.Resources>

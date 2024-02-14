@@ -138,7 +138,7 @@
         <Setter Property="CornerRadius" Value="8" />
     </Style>
 
-    <Style TargetType="ImageButton">
+    <Style TargetType="ImageButton" x:Key="SideButtons">
         <Setter Property="Opacity" Value="1" />
         <Setter Property="BorderColor" Value="Transparent"/>
         <Setter Property="BorderWidth" Value="0"/>

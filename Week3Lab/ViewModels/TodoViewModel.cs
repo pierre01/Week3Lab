@@ -25,13 +25,19 @@ namespace Week3Lab.ViewModels
             }
         }
 
+        /// <summary>
+        /// Set when the item is selected in the CollectionView
+        /// </summary>
+        [ObservableProperty]
+        private bool _isSelected;
+
         public bool IsNotDone => !IsDone;
 
         [ObservableProperty]
         private string _title;
 
         [ObservableProperty]
-        private string _notes;
+        private string? _notes;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsOverdue))]

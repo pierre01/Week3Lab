@@ -9,25 +9,62 @@ namespace Week3Lab.ViewModels;
 
 public partial class MainPageViewModel : ObservableObject
 {
+    /// <summary>
+    /// When the selected Todo item changes, update the IsSelected property and notify the UI
+    /// </summary>
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CompleteActiveTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeleteActiveTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(EditActiveTodoCommand))]
     private TodoViewModel _selectedActiveTodo;
+    partial void OnSelectedActiveTodoChanged(TodoViewModel? oldValue, TodoViewModel newValue)
+    {
+        if (oldValue != null) { oldValue.IsSelected = false; }
+        if (newValue != null) { newValue.IsSelected = true; }
+    }
 
+    /// <summary>
+    /// When the selected Todo item changes, update the IsSelected property and notify the UI
+    /// </summary>
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(DeleteCompletedTodoCommand))]
     [NotifyCanExecuteChangedFor(nameof(ReactivateCompletedTodoCommand))]
     private TodoViewModel _selectedCompletedTodo;
+    partial void OnSelectedCompletedTodoChanged(TodoViewModel? oldValue, TodoViewModel newValue)
+    {
+        if (oldValue != null) { oldValue.IsSelected = false; }
+        if (newValue != null) { newValue.IsSelected = true; }
+    }
 
+    /// <summary>
+    /// Keeps the Todo IDs unique
+    /// </summary>
     private int _todoCounter;
 
+    /// <summary>
+    /// The text for the new Todo item on top of the Page
+    /// </summary>
     [ObservableProperty]
     private string _newTodoText;
+
+    /// <summary>
+    /// Repository/Database for the Todo items
+    /// </summary>
     private readonly ITodoRepository _todoRepository;
+
+    /// <summary>
+    /// Navigation service to navigate between pages
+    /// </summary>
     private readonly INavigationService _navigationService;
 
+    /// <summary>
+    /// Collection of active Todo items
+    /// </summary>
     public ObservableCollection<TodoViewModel> ActiveTodos { get; set; }
+
+    /// <summary>
+    /// Collection of completed Todo items
+    /// </summary>
     public ObservableCollection<TodoViewModel> CompletedTodos { get; set; }
 
     public MainPageViewModel(ITodoRepository todoRepository, INavigationService navigationService)
@@ -49,6 +86,9 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Add a new Todo item to the list
+    /// </summary>
     [RelayCommand(CanExecute = nameof(CanExecuteAdd))]
     private void AddTodo()
     {
@@ -60,45 +100,69 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Check if the AddTodo command can be executed
+    /// </summary>
+    /// <returns>true if there is text for a new todo</returns>
     public bool CanExecuteAdd()
     {
         return !string.IsNullOrEmpty(NewTodoText);
     }
 
+    /// <summary>
+    /// Check if an active Todo item is selected in the CollectionView
+    /// </summary>
+    /// <returns>true if there is an item selected</returns>
     public bool IsActiveTodoSelected()
     {
         return SelectedActiveTodo != null;
     }
 
+    /// <summary>
+    /// Check if a completed Todo item is selected in the CollectionView
+    /// </summary>
+    /// <returns>true if there is an item selected</returns>
     public bool IsCompletedTodoSelected()
     {
         return SelectedCompletedTodo != null;
     }
 
-    [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
-    public void CompleteActiveTodo()
+    /// <summary>
+    /// Complete the selected active Todo item
+    /// </summary>
+    // [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
+    [RelayCommand]
+    public void CompleteActiveTodo(object param)
     {
-        if (SelectedActiveTodo != null)
+        var todo = param as TodoViewModel;
+        if (todo != null)
         {
-            SelectedActiveTodo.IsDone = true;
-            CompletedTodos.Insert(0, SelectedActiveTodo);
-            ActiveTodos.Remove(SelectedActiveTodo);
+            todo.IsDone = true;
+            CompletedTodos.Insert(0, todo);
+            ActiveTodos.Remove(todo);
             SelectedActiveTodo = null;
         }
     }
 
+    /// <summary>
+    /// Reactivate the selected completed Todo item to active and move it to the active list
+    /// </summary>
     [RelayCommand(CanExecute = nameof(IsCompletedTodoSelected))]
-    public void ReactivateCompletedTodo()
+    public void ReactivateCompletedTodo(object param)
     {
-        if (SelectedCompletedTodo != null)
+        var todo = param as TodoViewModel;
+        if (todo != null)
         {
-            SelectedCompletedTodo.IsDone = false;
-            ActiveTodos.Insert(0, SelectedCompletedTodo);
-            CompletedTodos.Remove(SelectedCompletedTodo);
+            todo.IsDone = false;
+            ActiveTodos.Insert(0, todo);
+            CompletedTodos.Remove(todo);
             SelectedCompletedTodo = null;
         }
     }
 
+    /// <summary>
+    /// Delete the selected active Todo item
+    /// </summary>
     [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
     public void DeleteActiveTodo()
     {
@@ -109,6 +173,9 @@ public partial class MainPageViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Edit the selected active Todo item
+    /// </summary>
     [RelayCommand(CanExecute = nameof(IsActiveTodoSelected))]
     public void EditActiveTodo()
     {

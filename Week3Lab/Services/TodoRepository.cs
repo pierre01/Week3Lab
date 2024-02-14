@@ -40,6 +40,7 @@ namespace Week3Lab.Services
         public Todo Add(Todo todo)
         {
             todo.Id = _idCount++;
+            _todoList.Add(todo);
             return todo;
         }
 

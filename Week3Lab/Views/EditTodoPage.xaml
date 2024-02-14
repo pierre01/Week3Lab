@@ -6,7 +6,7 @@
     xmlns:vm="clr-namespace:Week3Lab.ViewModels"
     Title="Edit" x:DataType="vm:EditTodoViewModel">
     <VerticalStackLayout>
-        <Grid Padding="10" ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+        <Grid Padding="10" ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
             <Label Text="Is Done" VerticalOptions="Center" />
             <Switch x:Name="DoneEntry" Grid.Column="1" IsToggled="{Binding IsDone}" />
             <Label Grid.Row="1" Text="Title" VerticalOptions="Center" />
@@ -18,7 +18,7 @@
             <DatePicker
                 x:Name="DueDateEntry" Grid.Row="2"
                 Grid.Column="1"
-                Date="{Binding DueOn}" />
+                Date="{Binding DueOn, Mode=TwoWay}" />
             <Label
                 Grid.Row="3" Grid.Column="0"
                 Text="Notes" VerticalOptions="Center" />
@@ -27,8 +27,8 @@
                 Grid.Column="1" Placeholder="Description"
                 Text="{Binding Notes}" />
             <HorizontalStackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
-                <Button Margin="8" Command="{Binding CancelCommand}" Text="Cancel" />
-                <Button Margin="8" Command="{Binding SaveCommand}" Text="Save" />
+                <Button Margin="8" Command="{Binding CancelCommand}" Text="Cancel" WidthRequest="60" />
+                <Button Margin="8" Command="{Binding SaveCommand}" Text="Save" WidthRequest="60" />
             </HorizontalStackLayout>
 
         </Grid>

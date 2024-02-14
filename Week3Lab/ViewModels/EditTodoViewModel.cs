@@ -47,18 +47,18 @@ namespace Week3Lab.ViewModels
                 _todo.DueOn = DueOn;
                 _todo.Title = Title;
                 _todo.IsDone = IsDone;
+                _todo.Notes = Notes;
                 _repositoryService.Update(_todo.TodoModel);
             }
+
             // return to the main page
-            Shell.Current.Navigation.PopAsync(true);
-            //_navigationService.GoToAsync(nameof(MainPage), true);
+            await _navigationService.GoBackAsync(true);
         }
 
         [RelayCommand]
-        private void Cancel()
+        private async void Cancel()
         {
-            Shell.Current.Navigation.PopAsync(true);
-            //_navigationService.GoToAsync(nameof(MainPage), true);
+            await _navigationService.GoBackAsync(true);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
