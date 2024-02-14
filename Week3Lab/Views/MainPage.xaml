@@ -76,7 +76,23 @@
                         Source="trash.png" ToolTipProperties.Text="Delete"
                         VerticalOptions="Center" WidthRequest="32" />
                 </Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal" />
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#f9f9f9, Dark=#454545}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#DFD8F7, Dark=#6b6b6b}" />
+                            </VisualState.Setters>
+                        </VisualState>                    
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
             </Grid>
+
         </DataTemplate>
     </ContentPage.Resources>
 
