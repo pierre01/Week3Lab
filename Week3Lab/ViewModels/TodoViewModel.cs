@@ -94,7 +94,7 @@ namespace Week3Lab.ViewModels
                     }
                     else
                     {
-                        text = $"Completed on {_todo.CompletedOn?.ToString("MM/dd/yyyy")}}";
+                        text = $"Completed on {_todo.CompletedOn?.ToString("MM/dd/yyyy")}";
                     }
                 }
                 return text;
