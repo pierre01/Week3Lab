@@ -12,3 +12,5 @@ Find great icons and images at: https://pictogrammers.com/library/mdi/
 
 ## Suggestion using ImageButton
 ![image](Example.png)
+## Solution proposed with ImageButton in the Items Template
+![image](Example02.png)
