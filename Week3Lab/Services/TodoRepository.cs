@@ -10,7 +10,7 @@ namespace Week3Lab.Services
         {
             _todoList =
             [
-                new Todo { Id = 1,  Title = "CarWash", IsDone = false },
+                new Todo { Id = 1,  Title ="CarWash", IsDone = false },
                 new Todo { Id = 2, Title = "Mow Lawn", IsDone = false },
                 new Todo { Id = 3, Title = "Trim Edges", IsDone = false },
                 new Todo { Id = 4, Title = "Repair Fence", IsDone = false },

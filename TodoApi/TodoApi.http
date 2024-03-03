@@ -1,0 +1,74 @@
+﻿@TodoApi_HostAddress = https://localhost:7204
+
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Walk dog",
+  "isDone":false
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Mow Lawn",
+  "isDone":false
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Repair Fence",
+  "isDone":false
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Pickup Kids",
+  "isDone":false
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Cook Dinner",
+  "isDone":false
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Book Ticket",
+  "isDone":true,
+  "completedOn":"2024-03-03T00:52:21.2390357-08:00"
+}
+
+###
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "title":"Doctor Appointment",
+  "isDone":true,
+  "completedOn": "2024-02-12T00:52:21.2390357-08:00"
+}
+
+###
+GET {{TodoApi_HostAddress}}/todoitems
+###
+
+
+GET {{TodoApi_HostAddress}}/todoitems/complete
+
+###
