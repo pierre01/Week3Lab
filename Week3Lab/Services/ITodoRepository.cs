@@ -8,19 +8,19 @@ namespace Week3Lab.Services
     public interface ITodoRepository
     {
         // CREATE
-        Todo Add(Todo todo);
+        Task<Todo> Add(Todo todo);
 
         // READ
-        List<Todo> GetAllTodos();
+        Task<List<Todo>> GetAllTodos();
         // GetAllCompletedTodos();
         // GetAllActiveTodos();
 
-        Todo? GetTodoById(int id);
+        Task<Todo?> GetTodoById(int id);
 
         // UPDATE
-        bool Update(Todo todo);
+        Task<bool> Update(Todo todo);
 
         // DELETE
-        bool Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

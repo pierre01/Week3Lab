@@ -17,10 +17,12 @@ namespace Week3Lab.ViewModels
         {
             if (newValue)
             {
+                _todo.IsDone = true;
                 _todo.CompletedOn = DateTime.Now;
             }
             else
             {
+                _todo.IsDone = false;
                 _todo.CompletedOn = null;
             }
         }

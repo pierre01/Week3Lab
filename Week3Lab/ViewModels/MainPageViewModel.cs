@@ -73,7 +73,13 @@ public partial class MainPageViewModel : ObservableObject, IQueryAttributable
         _navigationService = navigationService;
         ActiveTodos = new ObservableCollection<TodoViewModel>();
         CompletedTodos = new ObservableCollection<TodoViewModel>();
-        foreach (Todo todo in _todoRepository.GetAllTodos())
+        InitializeLists();
+    }
+
+    private async Task InitializeLists()
+    {
+
+        foreach (Todo todo in await _todoRepository.GetAllTodos())
         {
             if (!todo.IsDone)
             {
@@ -90,11 +96,11 @@ public partial class MainPageViewModel : ObservableObject, IQueryAttributable
     /// Add a new Todo item to the list
     /// </summary>
     [RelayCommand(CanExecute = nameof(CanExecuteAdd))]
-    private void AddTodo()
+    private async void AddTodo()
     {
         if (!string.IsNullOrEmpty(NewTodoText))
         {
-            var todo = _todoRepository.Add(new() { Title = NewTodoText });
+            var todo = await _todoRepository.Add(new() { Title = NewTodoText });
             ActiveTodos.Insert(0, new TodoViewModel(todo));
             NewTodoText = string.Empty;
         }
@@ -141,6 +147,7 @@ public partial class MainPageViewModel : ObservableObject, IQueryAttributable
             CompletedTodos.Insert(0, todo);
             ActiveTodos.Remove(todo);
             SelectedActiveTodo = null;
+            _todoRepository.Update(todo.TodoModel);
         }
     }
 
@@ -158,6 +165,7 @@ public partial class MainPageViewModel : ObservableObject, IQueryAttributable
             ActiveTodos.Insert(0, todo);
             CompletedTodos.Remove(todo);
             SelectedCompletedTodo = null;
+            _todoRepository.Update(todo.TodoModel);
         }
     }
 
@@ -175,6 +183,7 @@ public partial class MainPageViewModel : ObservableObject, IQueryAttributable
             else { ActiveTodos.Remove(todo); }
             SelectedCompletedTodo = null;
             SelectedActiveTodo = null;
+            _todoRepository.Delete(todo.TodoModel.Id);
         }
     }
 

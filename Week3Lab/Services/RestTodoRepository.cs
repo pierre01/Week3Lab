@@ -42,9 +42,13 @@ namespace Week3Lab.Services
             {
                 Add(todo);
             }
-
+            Thread.Sleep(1000);
         }
 
+        /// <summary>
+        /// Get all the Todos from the Web API
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Todo>> RefreshDataAsync()
         {
             Items = new List<Todo>();
@@ -67,6 +71,12 @@ namespace Week3Lab.Services
             return Items;
         }
 
+        /// <summary>
+        /// Save a Todo item to the Web API
+        /// </summary>
+        /// <param name="item">Todo to Create or update</param>
+        /// <param name="isNewItem">identify if we should do a Put or a Post</param>
+        /// <returns></returns>
         public async Task<Todo> SaveTodoItemAsync(Todo item, bool isNewItem = false)
         {
             Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
@@ -86,9 +96,16 @@ namespace Week3Lab.Services
                 {
                     // rest returned the object with the new id
                     string jsonResult = await response.Content.ReadAsStringAsync();
-
+                    // deserialize the result
+                    Todo retTodo = JsonSerializer.Deserialize<Todo>(jsonResult, _serializerOptions);
+                    return retTodo;
                     Debug.WriteLine(@"\tTodoItem successfully saved.");
                 }
+                else
+                {
+                    return null;
+                }
+
             }
             catch (Exception ex)
             {
@@ -97,9 +114,14 @@ namespace Week3Lab.Services
             }
         }
 
+        /// <summary>
+        /// Delete a Todo item from the Web API
+        /// </summary>
+        /// <param name="id">id of the todo to delete</param>
+        /// <returns>true if successful</returns>
         public async Task<bool> DeleteTodoItemAsync(string id)
         {
-            Uri uri = new Uri(string.Format(Constants.RestUrl, id));
+            Uri uri = new Uri($"{Constants.RestUrl}/{id}");
 
             try
             {
@@ -109,6 +131,7 @@ namespace Week3Lab.Services
                     Debug.WriteLine(@"\tTodoItem successfully deleted.");
                     return true;
                 }
+                else { return false; }
             }
             catch (Exception ex)
             {
@@ -117,29 +140,61 @@ namespace Week3Lab.Services
             }
         }
 
-        public Todo Add(Todo todo)
+        /// <summary>
+        /// Repository Interface 
+        /// Add a new Todo item to the Web API
+        /// </summary>
+        /// <param name="todo"></param>
+        /// <returns>the new Todo</returns>
+        public async Task<Todo> Add(Todo todo)
+        {
+            var todoRes = await SaveTodoItemAsync(todo, true);
+            return todo;
+        }
+
+        /// <summary>
+        /// Repository Interface
+        /// Delete a Todo item from the Web API
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> Delete(int id)
+        {
+            return await DeleteTodoItemAsync(id.ToString());
+        }
+
+        /// <summary>
+        /// Repository Interface
+        /// Retrieve all the Todos from the Web API
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Todo>> GetAllTodos()
+        {
+            return await RefreshDataAsync();
+        }
+
+        /// <summary>
+        /// Repository Interface
+        /// Retrieve a Todo by its id from the Web API
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<Todo?> GetTodoById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        /// <summary>
+        /// Repository Interface
+        /// Update a Todo item in the Web API
+        /// </summary>
+        /// <param name="todo"></param>
+        /// <returns></returns>
+        public async Task<bool> Update(Todo todo)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Todo> GetAllTodos()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Todo? GetTodoById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(Todo todo)
-        {
-            throw new NotImplementedException();
+            var todoRes = await SaveTodoItemAsync(todo);
+            return todoRes != null;
         }
     }
 }

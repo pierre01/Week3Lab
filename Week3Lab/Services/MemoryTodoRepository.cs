@@ -2,11 +2,11 @@
 
 namespace Week3Lab.Services
 {
-    public class TodoRepository : ITodoRepository
+    public class MemoryTodoRepository : ITodoRepository
     {
         private List<Todo> _todoList;
         private int _idCount = 15;
-        public TodoRepository()
+        public MemoryTodoRepository()
         {
             _todoList =
             [
@@ -27,24 +27,24 @@ namespace Week3Lab.Services
             ];
         }
 
-        public List<Todo> GetAllTodos()
+        public async Task<List<Todo>> GetAllTodos()
         {
             return _todoList;
         }
 
-        public Todo? GetTodoById(int id)
+        public async Task<Todo?> GetTodoById(int id)
         {
             return _todoList.FirstOrDefault(t => t.Id == id);
         }
 
-        public Todo Add(Todo todo)
+        public async Task<Todo> Add(Todo todo)
         {
             todo.Id = _idCount++;
             _todoList.Add(todo);
             return todo;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             // Find the modifiedTodo with the given id and delete it
             var todo = _todoList.FirstOrDefault(t => t.Id == id);
@@ -56,7 +56,7 @@ namespace Week3Lab.Services
             return false;
         }
 
-        public bool Update(Todo modifiedTodo)
+        public async Task<bool> Update(Todo modifiedTodo)
         {
             // Find the modifiedTodo with the given id and update it
             var todo = _todoList.FirstOrDefault(t => t.Id == modifiedTodo.Id);
