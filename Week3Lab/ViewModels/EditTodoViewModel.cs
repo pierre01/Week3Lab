@@ -10,6 +10,9 @@ namespace Week3Lab.ViewModels
         private TodoViewModel? _todo;
 
         [ObservableProperty]
+        public int _id;
+
+        [ObservableProperty]
         [Required]
         private string _title;
 
@@ -72,6 +75,7 @@ namespace Week3Lab.ViewModels
             DueOn = _todo.DueOn;
             Title = _todo.Title;
             IsDone = _todo.IsDone;
+            Id = _todo.Id;
         }
     }
 }

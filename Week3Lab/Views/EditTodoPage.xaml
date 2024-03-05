@@ -14,6 +14,7 @@
                 x:Name="TitleEntry" Grid.Row="1" Margin="4"
                 Grid.Column="1" Placeholder="Title"
                 Text="{Binding Title}" />
+            <Label Grid.Row="1"  Grid.Column="2" Text="{Binding Id}" VerticalOptions="Center" />
             <Label Grid.Row="2" Text="Due Date" Margin="0,0,8,0" VerticalOptions="Center" />
             <DatePicker Margin="4"
                 x:Name="DueDateEntry" Grid.Row="2"

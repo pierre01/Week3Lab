@@ -15,7 +15,7 @@ namespace Week3Lab.Services
         // GetAllCompletedTodos();
         // GetAllActiveTodos();
 
-        Task<Todo?> GetTodoById(int id);
+        Task<Todo> GetTodoById(int id);
 
         // UPDATE
         Task<bool> Update(Todo todo);

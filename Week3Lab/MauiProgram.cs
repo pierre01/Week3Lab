@@ -31,7 +31,10 @@ namespace Week3Lab
 
         public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddSingleton<ITodoRepository, MemoryTodoRepository>();
+            //mauiAppBuilder.Services.AddSingleton<ITodoRepository, MemoryTodoRepository>();
+            //mauiAppBuilder.Services.AddSingleton<ITodoRepository, RestTodoRepository>();
+            //mauiAppBuilder.Services.AddSingleton<ITodoRepository, FileTodoRepository>();
+            mauiAppBuilder.Services.AddSingleton<ITodoRepository, DbTodoRepository>();
             mauiAppBuilder.Services.AddSingleton<INavigationService, NavigationService>();
             return mauiAppBuilder;
         }
